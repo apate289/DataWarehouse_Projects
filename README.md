@@ -17,68 +17,55 @@ docker pull mcr.microsoft.com/mssql/server:2022-latest
 
 3. Run the SQL Server container
 
-Start the container with required environment variables:
+- Start the container with the required environment variables:
 
-docker run -e "ACCEPT_EULA=Y" \
-           -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
-           -p 1433:1433 \
-           --name sqlserver \
-           -d mcr.microsoft.com/mssql/server:2022-latest
+           docker run -e "ACCEPT_EULA=Y" \
+                      -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
+                      -p 1433:1433 \
+                      --name sqlserver \
+                      -d mcr.microsoft.com/mssql/server:2022-latest
 
-
-ACCEPT_EULA=Y → Required to accept Microsoft’s license.
-
-MSSQL_SA_PASSWORD → Must be at least 8 characters with uppercase, lowercase, numbers, and symbols.
-
--p 1433:1433 → Maps container’s SQL port to host.
-
---name sqlserver → Name of the container.
-
--d → Run in detached mode.
+           ACCEPT_EULA=Y → Required to accept Microsoft’s license.
+           MSSQL_SA_PASSWORD → Must be at least 8 characters with uppercase, lowercase, numbers, and symbols.
+           -p 1433:1433 → Maps container’s SQL port to host.
+           --name sqlserver → Name of the container.
+           -d → Run in detached mode.
 
 4. Verify the container is running
-docker ps
+           docker ps
 
 
 You should see your SQL Server container running.
 
 5. Connect to SQL Server
 
-From sqlcmd (inside container):
+- From sqlcmd (inside container): 
+           docker exec -it sqlserver /opt/mssql-tools/bin/sqlcmd \
+               -S localhost -U SA -P "YourStrong@Passw0rd"
 
-docker exec -it sqlserver /opt/mssql-tools/bin/sqlcmd \
-    -S localhost -U SA -P "YourStrong@Passw0rd"
+- From local SQL client (SSMS, Azure Data Studio, etc.):
 
-
-From local SQL client (SSMS, Azure Data Studio, etc.):
-
-Server: localhost,1433
-
-User: SA
-
-Password: YourStrong@Passw0rd
+           Server: localhost,1433
+           User: SA
+           Password: YourStrong@Passw0rd
 
 6. Persist Data with Volumes (Optional)
 
-By default, data is lost when the container stops. Mount a volume:
+- By default, data is lost when the container stops. Mount a volume:
 
-docker run -e "ACCEPT_EULA=Y" \
-           -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
-           -p 1433:1433 \
-           --name sqlserver \
-           -v sqlvolume:/var/opt/mssql \
-           -d mcr.microsoft.com/mssql/server:2022-latest
+           docker run -e "ACCEPT_EULA=Y" \
+                      -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
+                      -p 1433:1433 \
+                      --name sqlserver \
+                      -v sqlvolume:/var/opt/mssql \
+                      -d mcr.microsoft.com/mssql/server:2022-latest
 
 
 Now the database files persist even if the container restarts.
 
 7. Stopping & Starting
 
-Stop:
-
-docker stop sqlserver
-
-
-Start:
-
-docker start sqlserver
+       Stop:
+           docker stop sqlserver
+       Start:
+           docker start sqlserver
