@@ -1,16 +1,16 @@
 1. Install Docker
 
-Make sure Docker Desktop (Windows/Mac) or Docker Engine (Linux) is installed and running.
+- Make sure Docker Desktop (Windows/Mac) or Docker Engine (Linux) is installed and running.
 Verify with:
 
-docker --version
+      docker --version
 
 2. Pull the SQL Server image
 
-Microsoft provides official SQL Server images on Docker Hub.
+- Microsoft provides official SQL Server images on Docker Hub.
 Run:
 
-docker pull mcr.microsoft.com/mssql/server:2022-latest
+      docker pull mcr.microsoft.com/mssql/server:2022-latest
 
 
 👉 Replace 2022-latest with another version if needed (2019-latest, etc.).
@@ -31,11 +31,12 @@ docker pull mcr.microsoft.com/mssql/server:2022-latest
            --name sqlserver → Name of the container.
            -d → Run in detached mode.
 
-4. Verify the container is running
+4. Verify the container is running:
+   
            docker ps
 
 
-You should see your SQL Server container running.
+  You should see your SQL Server container running.
 
 5. Connect to SQL Server
 
