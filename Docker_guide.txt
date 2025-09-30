@@ -54,8 +54,10 @@ Run:
 
 Now the database files persist even if the container restarts.
 
-Below command can copy files or folder from server lcoation to Docker container:
+The command below can copy files or folders from the server location to the Docker container:
 	docker cp /host_mnt/d/DataWarehouse/datasets DataWarehousProjcts:/var/opt/mssql/data/
+    docker cp D://DataWarehouse//datasets DataWarehousProjcts:/var/opt/mssql/data/        
+Successfully copied 3.18MB to DataWarehousProjcts:/var/opt/mssql/data/
 
 7. Stopping & Starting
 
